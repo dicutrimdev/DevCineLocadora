@@ -1,4 +1,4 @@
-package com.domain.devcinelocadora.mapper;
+package com.domain.devcinelocadora.mappers;
 
 import com.domain.devcinelocadora.dto.ClienteDTO;
 import com.domain.devcinelocadora.entities.Cliente;

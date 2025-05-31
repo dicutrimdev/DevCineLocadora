@@ -1,4 +1,4 @@
-package com.domain.devcinelocadora.mapper;
+package com.domain.devcinelocadora.mappers;
 
 import com.domain.devcinelocadora.entities.Filme;
 import com.domain.devcinelocadora.entities.Aluguel;
