@@ -13,6 +13,8 @@ import com.domain.devcinelocadora.repositories.AluguelRepository;
 import com.domain.devcinelocadora.repositories.ClienteRepository;
 import com.domain.devcinelocadora.exceptions.FilmeNotFoundException;
 import com.domain.devcinelocadora.exceptions.ClienteNotFoundException;
+import com.domain.devcinelocadora.exceptions.AluguelNotFoundException;
+import com.domain.devcinelocadora.exceptions.EstoqueInsuficienteException;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -42,7 +44,7 @@ public class AluguelService {
 
         for (Filme filme : filmes) {
             if (filme.getEstoque() <= 0) {
-                throw new RuntimeException("Filme indisponível: " + filme.getTitulo());
+                throw new EstoqueInsuficienteException("Filme indisponível: " + filme.getTitulo());
             }
             filme.setEstoque(filme.getEstoque() - 1);
         }
@@ -59,5 +61,33 @@ public class AluguelService {
 
         var aluguelSalvo = aluguelRepository.save(aluguel);
         return AluguelMapper.toResponseDTO(aluguelSalvo);
+    }
+
+    @Transactional(readOnly = true)
+    public AluguelResponseDTO buscarPorId(Long id) {
+        Aluguel aluguel = getOrElseThrow(id);
+        return AluguelMapper.toResponseDTO(aluguel);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AluguelResponseDTO> listarTodos() {
+        return aluguelRepository.findAll()
+                .stream()
+                .map(AluguelMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Transactional
+    public void deletarAluguel(Long id) {
+        var aluguel = getOrElseThrow(id);
+        for (Filme filme : aluguel.getFilmes()) {
+            filme.setEstoque(filme.getEstoque() + 1);
+        }
+        aluguelRepository.deleteById(id);
+    }
+
+    private Aluguel getOrElseThrow(Long id) {
+        return aluguelRepository.findById(id)
+                .orElseThrow(() -> new AluguelNotFoundException("Aluguel não encontrado"));
     }
 }
