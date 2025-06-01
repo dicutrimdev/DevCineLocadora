@@ -14,16 +14,10 @@ public class AluguelMapper {
         if (dto == null || cliente == null || filmes == null) {
             return null;
         }
-        return Aluguel.builder()
-                .cliente(cliente)
-                .filmes(filmes)
-                .valor(dto.getValor())
-                .dataAluguel(dto.getDataAluguel())
-                .dataDevolucao(dto.getDataDevolucao())
-                .build();
+        return Aluguel.builder().cliente(cliente).filmes(filmes).build();
     }
 
-    public static AluguelResponseDTO toDTO(Aluguel aluguel) {
+    public static AluguelResponseDTO toResponseDTO(Aluguel aluguel) {
         if (aluguel == null) {
             return null;
         }
