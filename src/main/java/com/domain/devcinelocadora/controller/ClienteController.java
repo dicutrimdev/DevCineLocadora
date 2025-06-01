@@ -1,5 +1,6 @@
 package com.domain.devcinelocadora.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.domain.devcinelocadora.dto.ClienteDTO;
@@ -16,7 +17,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> criarCliente(@RequestBody ClienteDTO dto) {
+    public ResponseEntity<ClienteDTO> criarCliente(@Valid @RequestBody ClienteDTO dto) {
         var response = clienteService.criarCliente(dto);
         return ResponseEntity.ok(response);
     }
@@ -35,7 +36,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable Long id,
-                                                       @RequestBody ClienteDTO dto) {
+                                                       @Valid @RequestBody ClienteDTO dto) {
         var response = clienteService.atualizarCliente(id, dto);
         return ResponseEntity.ok(response);
     }

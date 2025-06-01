@@ -1,5 +1,6 @@
 package com.domain.devcinelocadora.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import com.domain.devcinelocadora.dto.FilmeDTO;
@@ -16,7 +17,7 @@ public class FilmeController {
     private final FilmeService filmeService;
 
     @PostMapping
-    public ResponseEntity<FilmeDTO> criarFilme(@RequestBody FilmeDTO dto) {
+    public ResponseEntity<FilmeDTO> criarFilme(@Valid @RequestBody FilmeDTO dto) {
         var response = filmeService.criarFilme(dto);
         return ResponseEntity.ok(response);
     }
@@ -35,7 +36,7 @@ public class FilmeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<FilmeDTO> atualizarFilme(@PathVariable Long id,
-                                                   @RequestBody FilmeDTO dto) {
+                                                   @Valid @RequestBody FilmeDTO dto) {
         var response = filmeService.atualizarFilme(id, dto);
         return ResponseEntity.ok(response);
     }

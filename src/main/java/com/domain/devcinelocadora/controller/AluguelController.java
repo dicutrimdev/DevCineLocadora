@@ -1,5 +1,6 @@
 package com.domain.devcinelocadora.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class AluguelController {
     private final AluguelService aluguelService;
 
     @PostMapping
-    public ResponseEntity<AluguelResponseDTO> criarAluguel(@RequestBody AluguelRequestDTO dto) {
+    public ResponseEntity<AluguelResponseDTO> criarAluguel(@Valid @RequestBody AluguelRequestDTO dto) {
         var response = aluguelService.criarAluguel(dto);
         return ResponseEntity.ok(response);
     }
