@@ -25,6 +25,9 @@ public class Aluguel {
     private LocalDate dataAluguel;
     private LocalDate dataDevolucao;
 
+    @Column(nullable = false)
+    private Boolean finalizado = false;
+
     @ManyToOne
     private Cliente cliente;
 

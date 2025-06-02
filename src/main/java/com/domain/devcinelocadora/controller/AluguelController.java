@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.domain.devcinelocadora.dto.NotaAluguelDTO;
 import com.domain.devcinelocadora.dto.AluguelRequestDTO;
 import com.domain.devcinelocadora.dto.AluguelResponseDTO;
 import com.domain.devcinelocadora.services.AluguelService;
@@ -64,16 +65,9 @@ public class AluguelController {
     }
 
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Deletar aluguel pelo ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Aluguel deletado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Aluguel não encontrado")
-    })
-    public ResponseEntity<Void> deletarAluguel(
-            @Parameter(description = "ID do aluguel a ser deletado", example = "1")
-            @PathVariable Long id) {
-        aluguelService.deletarAluguel(id);
-        return ResponseEntity.noContent().build();
+    @PatchMapping("/{id}/finalizar")
+    public ResponseEntity<NotaAluguelDTO> finalizarAluguel(@PathVariable Long id) {
+        var nota = aluguelService.finalizarAluguel(id);
+        return ResponseEntity.ok(nota);
     }
 }
