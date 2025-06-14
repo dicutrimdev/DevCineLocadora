@@ -10,6 +10,7 @@ public class ClienteMapper {
         }
         return ClienteDTO.builder()
                 .id(cliente.getId())
+                .cpf(cliente.getCpf())
                 .nome(cliente.getNome())
                 .email(cliente.getEmail())
                 .telefone(cliente.getTelefone())
@@ -23,6 +24,7 @@ public class ClienteMapper {
         }
         return Cliente.builder()
                 .id(dto.getId())
+                .cpf(dto.getCpf())
                 .nome(dto.getNome())
                 .email(dto.getEmail())
                 .telefone(dto.getTelefone())

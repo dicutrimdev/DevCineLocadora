@@ -16,6 +16,7 @@ import java.util.List;
 public class ClienteService {
     private final ClienteRepository clienteRepository;
 
+
     @Transactional
     public ClienteDTO criarCliente(ClienteDTO dto) {
         var cliente = ClienteMapper.toEntity(dto);
@@ -23,16 +24,19 @@ public class ClienteService {
         return ClienteMapper.toDTO(clienteSalvo);
     }
 
+
     @Transactional(readOnly = true)
     public ClienteDTO buscarPorId(Long id) {
         var cliente = getClienteOrThrow(id);
         return ClienteMapper.toDTO(cliente);
     }
 
+
     @Transactional(readOnly = true)
     public List<ClienteDTO> listarTodos() {
         return clienteRepository.findAll().stream().map(ClienteMapper::toDTO).toList();
     }
+
 
     @Transactional
     public ClienteDTO atualizarCliente(Long id, ClienteDTO dto) {
@@ -42,11 +46,13 @@ public class ClienteService {
         return ClienteMapper.toDTO(clienteAtualizado);
     }
 
+
     @Transactional
     public void deletarCliente(Long id) {
         getClienteOrThrow(id);
         clienteRepository.deleteById(id);
     }
+
 
     private static void copyFromDto(ClienteDTO dto, Cliente clienteEncontrado) {
         clienteEncontrado.setNome(dto.getNome());
@@ -54,6 +60,7 @@ public class ClienteService {
         clienteEncontrado.setTelefone(dto.getTelefone());
         clienteEncontrado.setIdentidade(dto.getIdentidade());
     }
+
 
     private Cliente getClienteOrThrow(Long id) {
         return clienteRepository.findById(id).orElseThrow(

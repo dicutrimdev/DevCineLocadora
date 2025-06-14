@@ -20,6 +20,8 @@ public class ClienteDTO {
     @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
     private String nome;
 
+    private String cpf;
+
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "O e-mail deve ser válido")
     private String email;
